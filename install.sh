@@ -32,3 +32,4 @@ sudo pip3 install cryptography --break-system-packages
 sudo pip install influxdb --break-system-packages
 sudo pip3 install html5lib --break-system-packages
 sudo apt install python3-pycryptodome
+sudo pip3 install sdnotify --break-system-packages

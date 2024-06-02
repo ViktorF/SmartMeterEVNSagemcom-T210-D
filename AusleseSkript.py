@@ -3,6 +3,7 @@ import sys
 import os
 import serial
 from datetime import datetime
+from datetime import timezone
 from binascii import unhexlify
 from gurux_dlms.GXDLMSTranslator import GXDLMSTranslator
 from gurux_dlms.TranslatorOutputType import TranslatorOutputType
@@ -11,6 +12,7 @@ from Cryptodome.Cipher import AES
 from time import sleep
 import xml.etree.ElementTree as ET
 import time
+import sdnotify
 
 
 #Aktuellen Dateipfad finden und mit config.json erweitern
@@ -71,13 +73,15 @@ ser = serial.Serial( port=comport,
          stopbits=serial.STOPBITS_ONE
 )
 
+uptime = datetime.now(timezone.utc).isoformat()
+
 #MQTT Init
 if useMQTT:
     import paho.mqtt.client as mqtt
     try:
-       client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, "SmartMeter")
-       client.username_pw_set(mqttuser, mqttpasswort)
-       client.connect(mqttBroker, mqttport)
+        client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, "SmartMeter")
+        client.username_pw_set(mqttuser, mqttpasswort)
+        client.connect(mqttBroker, mqttport)
     except:
         print("Die Ip Adresse des Brokers ist falsch!")
         sys.exit()
@@ -114,6 +118,9 @@ def evn_decrypt(frame, key, systemTitel, frameCounter):
     init_vector = unhexlify(systemTitel + frameCounter)
     cipher = AES.new(encryption_key, AES.MODE_GCM, nonce=init_vector)
     return cipher.decrypt(frame).hex()
+
+n = sdnotify.SystemdNotifier()
+n.notify("READY=1")
 
 while 1:
     daten = ser.read(size=282).hex()    
@@ -195,7 +202,6 @@ while 1:
     except BaseException as err:
         print("Fehler: ", format(err))
         continue;    
-    
 
     #MQTT
     if useMQTT:
@@ -208,6 +214,7 @@ while 1:
                 print("Lost Connection to MQTT...Trying to reconnect in 2 Seconds")
                 time.sleep(2)
                 
+    n.notify("WATCHDOG=1")
 
     if printValue:
         now = datetime.now()
@@ -240,6 +247,9 @@ while 1:
         client.publish("Smartmeter/StromL2",StromL2)
         client.publish("Smartmeter/StromL3",StromL3)
         client.publish("Smartmeter/Leistungsfaktor",Leistungsfaktor)
+        current_timestamp = datetime.now(timezone.utc).isoformat()
+        client.publish("Smartmeter/last_seen", current_timestamp)
+        client.publish("Smartmeter/uptime", uptime)
     try:
         if useinfluxdb:
             mytime = int(time.time()*1000000000)
