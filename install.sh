@@ -25,7 +25,7 @@ sudo apt-get install python3-pip
 # Installation von Python Paketen
 sudo pip3 install gurux-dlms --break-system-packages
 sudo pip3 install beautifulsoup4 --break-system-packages
-sudo pip3 install paho-mqtt==1.6.1 --break-system-packages
+sudo pip3 install paho-mqtt --break-system-packages
 sudo apt-get install libxslt-dev --break-system-packages
 sudo pip3 install pyserial --break-system-packages
 sudo pip3 install cryptography --break-system-packages

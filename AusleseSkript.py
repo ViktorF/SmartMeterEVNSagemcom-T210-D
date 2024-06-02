@@ -30,7 +30,7 @@ if not os.access(configFile, os.R_OK):
 config = json.load(open(configFile))
 
 # Überprüfung ob alle Daten in der Config vorhanden sind
-neededConfig = ['port', 'baudrate', 'key', 'printValue', 'useMQTT', 'mqttbrokerip', 'mqttbrokerport', 'mqttbrokeruser', 'mqttbrokerpasswort', 'useInfluxdb', 'influxdbip', 'influxdbport']
+neededConfig = ['port', 'baudrate', 'key', 'printValue', 'useMQTT', 'mqttbrokerip', 'mqttbrokerport', 'mqttbrokeruser', 'mqttbrokerpasswort', 'useInfluxdb', 'influxdbip', 'influxdbport', 'influxdbuser', 'influxdbpw']
 for conf in neededConfig:
     if conf not in config:
         print(conf + ' Fehlt im Configfile!')
@@ -59,6 +59,8 @@ comport = config['port']
 useinfluxdb = config['useInfluxdb']
 influxdbhost = config['influxdbip']
 influxdbport = config['influxdbport']
+influxdbuser = config['influxdbuser']
+influxdbpw = config['influxdbpw']
 influxdbdatenbank = 'SmartMeter'
 
 tr = GXDLMSTranslator()
@@ -73,9 +75,9 @@ ser = serial.Serial( port=comport,
 if useMQTT:
     import paho.mqtt.client as mqtt
     try:
-        client = mqtt.Client("SmartMeter")
-        client.username_pw_set(mqttuser, mqttpasswort)
-        client.connect(mqttBroker, mqttport)
+       client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, "SmartMeter")
+       client.username_pw_set(mqttuser, mqttpasswort)
+       client.connect(mqttBroker, mqttport)
     except:
         print("Die Ip Adresse des Brokers ist falsch!")
         sys.exit()
@@ -83,7 +85,7 @@ if useMQTT:
 if useinfluxdb:
     from influxdb import InfluxDBClient
     try:
-        clientinfluxdb = InfluxDBClient(host=influxdbhost, port=influxdbport, database=influxdbdatenbank)
+        clientinfluxdb = InfluxDBClient(host=influxdbhost, port=influxdbport, database=influxdbdatenbank, username=influxdbuser, password=influxdbpw)
     except Exception as err:
         print("Kann nicht mit InfluxDB verbinden!")
         print()
