@@ -6,7 +6,7 @@ from datetime import datetime
 from datetime import timezone
 from binascii import unhexlify
 from gurux_dlms.GXDLMSTranslator import GXDLMSTranslator
-from gurux_dlms.TranslatorOutputType import TranslatorOutputType
+from gurux_dlms.enums.TranslatorOutputType import TranslatorOutputType
 from bs4 import BeautifulSoup
 from Cryptodome.Cipher import AES
 from time import sleep
