@@ -10,5 +10,6 @@
     "mqttbrokerpasswort": "",
     "useInfluxdb": false,
     "influxdbip": "",
-    "influxdbport":"" 
+    "influxdbport":"",
+    "influxdbpw":""
 }
