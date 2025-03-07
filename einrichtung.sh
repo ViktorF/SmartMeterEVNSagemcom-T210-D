@@ -26,6 +26,8 @@ if [[ $userinput =~ ^[yYnN][eE][sS]|[yY]$ ]]; then
 	useInfluxdb=true
 	read -p "Bitte IP-Adresse der Influxdb eingeben: " influxdbip
 	read -p "Bitte den Port eingebn. (default:8086): " influxdbport
+	read -p "Bitte den Influxdb User eingeben: " influxdbuser
+	read -p "Bitte das Influxdb Passwort eingeben: " influxdbpw
 fi
 sudo rm config.json
 echo "{" >> config.json
@@ -34,7 +36,7 @@ echo "    \"baudrate\": $baudrate," >> config.json
 echo "    \"key\": \"$key\"," >> config.json
 echo "    \"printValue\": $printValue," >> config.json
 echo "    \"useMQTT\": $useMQTT," >> config.json
-if [ -z "$mqttbrokerport" ]; then
+if [ -z "$mqttbrokerip" ]; then
   echo "    \"mqttbrokerip\": \"\"," >> config.json
 else
   echo "    \"mqttbrokerip\": \"$mqttbrokerip\"," >> config.json
@@ -47,7 +49,7 @@ fi
 echo "    \"mqttbrokeruser\": \"$mqttbrokeruser\"," >> config.json
 echo "    \"mqttbrokerpasswort\": \"$mqttbrokerpasswort\"," >> config.json
 echo "    \"useInfluxdb\": $useInfluxdb," >> config.json
-if [ -z "$influxdbport" ]; then
+if [ -z "$influxdbip" ]; then
   echo "    \"influxdbip\": \"\"," >> config.json
 else
   echo "    \"influxdbip\": \"$influxdbip\"," >> config.json
@@ -57,4 +59,6 @@ if [ -z "$influxdbport" ]; then
 else
   echo "    \"influxdbport\": $influxdbport" >> config.json
 fi
+echo "    \"influxdbuser\": \"$influxdbuser\"," >> config.json
+echo "    \"influxdbpw\": \"$influxdbpw\"," >> config.json
 echo "}" >> config.json
