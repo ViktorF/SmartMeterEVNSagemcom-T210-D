@@ -11,5 +11,6 @@
     "useInfluxdb": false,
     "influxdbip": "",
     "influxdbport":"",
+    "influxdbuser":"",
     "influxdbpw":""
 }
