@@ -1,0 +1,16 @@
+[Unit]
+Description=SmartMeterData Script
+After=multi-user.target
+Wants=network-online.target
+
+[Service]
+Type=notify
+Environment=PYTHONUNBUFFERED=true
+#Script wird wiedergartet wenn es abstürzt
+Restart=always
+ExecStart=/home/pi/bin/SmartMeterEVNSagemcom-T210-D/smartmeter/bin/python3 /home/pi/bin/SmartMeterEVNSagemcom-T210-D/AusleseSkript.py
+WatchdogSec=60
+RestartSec=20
+
+[Install]
+WantedBy=multi-user.target

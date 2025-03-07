@@ -1,0 +1,10 @@
+gurux-dlms
+beautifulsoup4
+paho-mqtt
+lxml
+pyserial
+cryptography
+influxdb
+html5lib
+pycryptodomex
+sdnotify
