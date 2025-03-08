@@ -1,0 +1,98 @@
+# in configuration.yaml:
+# mqtt: !include mqtt.yaml
+# in mqtt.yaml inhalt:
+
+sensor:
+  #Smartmeter
+  - name: "Smartmeter Wirkenergie Bezug"
+    unique_id: "SmartmeterWirkenergieBezug"
+    state_topic: "Smartmeter/Wirkenergie/Bezug"
+    unit_of_measurement: "kWh"
+    device_class: energy
+    state_class: total_increasing
+    suggested_display_precision: 1
+  - name: "Smartmeter Wirkenergie Lieferung"
+    unique_id: "SmartmeterWirkenergieLieferung"
+    state_topic: "Smartmeter/Wirkenergie/Lieferung"
+    unit_of_measurement: "kWh"
+    device_class: energy
+    state_class: total_increasing
+    suggested_display_precision: 1
+  - name: "Smartmeter Wirkleistung Bezug"
+    unique_id: "SmartmeterWirkleistungBezug"
+    state_topic: "Smartmeter/Wirkleistung/Bezug"
+    unit_of_measurement: "W"
+    device_class: "power"
+    state_class: "measurement"
+    suggested_display_precision: 0
+  - name: "Smartmeter Wirkleistung Lieferung"
+    unique_id: "SmartmeterWirkleistungLieferung"
+    state_topic: "Smartmeter/Wirkleistung/Lieferung"
+    unit_of_measurement: "W"
+    device_class: "power"
+    state_class: "measurement"
+    suggested_display_precision: 0
+  - name: "Smartmeter Wirkleistung Gesamt"
+    unique_id: "SmartmeterWirkleistungGesamt"
+    state_topic: "Smartmeter/Wirkleistung/Gesamt"
+    unit_of_measurement: "W"
+    device_class: "power"
+    state_class: "measurement"
+    suggested_display_precision: 0
+  - name: "Smartmeter Spannung L1"
+    unique_id: "SmartmeterSpannungL1"
+    state_topic: "Smartmeter/Spannung/L1"
+    unit_of_measurement: "V"
+    device_class: "voltage"
+    state_class: "measurement"
+    suggested_display_precision: 1
+  - name: "Smartmeter Spannung L2"
+    unique_id: "SmartmeterSpannungL2"
+    state_topic: "Smartmeter/Spannung/L2"
+    unit_of_measurement: "V"
+    device_class: "voltage"
+    state_class: "measurement"
+    suggested_display_precision: 2
+  - name: "Smartmeter Spannung L3"
+    unique_id: "SmartmeterSpannungL3"
+    state_topic: "Smartmeter/Spannung/L3"
+    unit_of_measurement: "V"
+    device_class: "voltage"
+    state_class: "measurement"
+    suggested_display_precision: 1
+  - name: "Smartmeter Strom L1"
+    unique_id: "SmartmeterStromL1"
+    state_topic: "Smartmeter/Strom/L1"
+    unit_of_measurement: "A"
+    device_class: "current"
+    state_class: "measurement"
+    suggested_display_precision: 2
+  - name: "Smartmeter Strom L2"
+    unique_id: "SmartmeterStromL2"
+    state_topic: "Smartmeter/Strom/L2"
+    unit_of_measurement: "A"
+    device_class: "current"
+    state_class: "measurement"
+    suggested_display_precision: 2
+  - name: "Smartmeter Strom L3"
+    unique_id: "SmartmeterStromL3"
+    state_topic: "Smartmeter/Strom/L3"
+    unit_of_measurement: "A"
+    device_class: "current"
+    state_class: "measurement"
+    suggested_display_precision: 2
+  - name: "Smartmeter Leistungsfaktor"
+    unique_id: "SmartmeterLeistungsfaktor"
+    state_topic: "Smartmeter/Leistungsfaktor"
+    unit_of_measurement: "%"
+    device_class: "power_factor"
+    state_class: "measurement"
+    suggested_display_precision: 3
+  - name: "Smartmeter Uptime"
+    unique_id: "SmartmeterUptime"
+    state_topic: "Smartmeter/uptime"
+    device_class: timestamp
+  - name: "Smartmeter Last Seen"
+    unique_id: "SmartmeterLastSeen"
+    state_topic: "Smartmeter/last_seen"
+    device_class: timestamp
